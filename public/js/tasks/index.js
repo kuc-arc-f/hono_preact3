@@ -1,6 +1,7 @@
 console.log("#tasks.index.js");
 const html = htm.bind(preact.h);
 const elem = document.getElementById("root");
+let items = [];
 //
 const PageIndex = {
     /**
@@ -46,21 +47,37 @@ const PageIndex = {
      *
      * @return
      */     
-    displayProc: function(items){
+    displayProc: function(){
         try {
 //console.log("#init=", new Date().toString());
             const li = [];
-            items.forEach((element) => {
+            items.forEach((item) => {
                 let ht = html`
                 <div>
-                    <h3 class="text-3xl font-bold">${element.title}</h3>
-                    <p>ID: ${element.id}, ${element.createdAt}</p>
+                    <h3 class="text-3xl font-bold">${item.title}</h3>
+                    <p>ID: ${item.id}, ${item.createdAt}</p>
+                    <button id="row_id_${item.id}">[ Test ]</button>
                     <hr class="my-2" />
                 </div>
                 `;
                 li.push(ht);
             });
             preact.render(li, elem);
+            //event
+            items.forEach((item) => {
+                const button= document.querySelector(`#row_id_${item.id}`);
+                button.addEventListener('click', () => {
+                    const resultRow = items.filter(target => (target.id === item.id));
+//console.log(resultRow);
+//alert("title=" + resultRow[0].title);
+                    if(resultRow[0]) {
+                      alert(`
+                      title=${resultRow[0].title} ,
+                      id=${resultRow[0].id} ,
+                      `);
+                    }
+                }); 
+            });
         } catch (e) {
             console.error("Error, displayProc");
             console.error(e);
@@ -120,9 +137,10 @@ console.log(json);
     initProc: async function() {
         try {
 console.log("#init=", new Date().toString());
-            const items = await this.get_list();
+            items = await this.get_list();
 console.log(items);
-            this.displayProc(items);
+//            this.displayProc(items);
+            this.displayProc();
             //
             const button = document.querySelector('#save');
             button.addEventListener('click', async () => {
