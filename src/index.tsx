@@ -16,6 +16,7 @@ import {Csr3} from './views/csr3/App';
 //
 import {TestIndex} from './views/test_index/App';
 import {Test4} from './views/preact1/App';
+import {Test5} from './views/preact2/App';
 //
 interface Env {
   DB: Database
@@ -55,11 +56,6 @@ app.get('/', (c) => {
   const messages = ['Good Morning', 'Good Evening', 'Good Night']
   return c.html(<Top messages={messages} />)
 });
-/*
-app.get('/test', async (c) => { 
-  return c.html(<Test />); 
-});
-*/
 const testItems = [
   {id: 1, title: "title_1"},
   {id: 2, title: "title_2"},
@@ -82,6 +78,9 @@ app.get('/csr3', async (c) => {
 });
 app.get('/preact1', async (c) => { 
   return c.html(<Test4 items={[]} />);
+});
+app.get('/preact2', async (c) => { 
+  return c.html(<Test5 items={[]} />);
 });
 //
 

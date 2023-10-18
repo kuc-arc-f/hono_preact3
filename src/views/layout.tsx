@@ -21,6 +21,7 @@ export const Layout: FC = (props) => {
       <div class="text-center py-2">
         <a href="/">[ home ]</a>
         <a href="/preact1">[ preact1 ]</a>
+        <a href="/preact2">[ preact2 ]</a>
       </div>
       <hr />
       <body>
