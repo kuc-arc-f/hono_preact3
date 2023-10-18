@@ -17,6 +17,8 @@ import {Csr3} from './views/csr3/App';
 import {TestIndex} from './views/test_index/App';
 import {Test4} from './views/preact1/App';
 import {Test5} from './views/preact2/App';
+/* tasks */
+import {TaskIndex} from './views/tasks/App';
 //
 interface Env {
   DB: Database
@@ -81,6 +83,9 @@ app.get('/preact1', async (c) => {
 });
 app.get('/preact2', async (c) => { 
   return c.html(<Test5 items={[]} />);
+});
+app.get('/tasks', async (c) => { 
+  return c.html(<TaskIndex items={[]} />);
 });
 //
 

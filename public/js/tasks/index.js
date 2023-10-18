@@ -1,5 +1,6 @@
-let items = [];
-let message = "";
+console.log("#tasks.index.js");
+const html = htm.bind(preact.h);
+const elem = document.getElementById("root");
 //
 const PageIndex = {
     /**
@@ -38,56 +39,103 @@ const PageIndex = {
             console.error(e);
             throw new Error('Error , get_list');
         }
-    },  
-}
-//
-function App() {
-    const [updatetime, setUpdatetime] = React.useState("");
-    React.useEffect(() => {
-        (async () => {
-            console.log("#start");
-            items = await PageIndex.get_list();
+    },
+    /**
+     *
+     * @param
+     *
+     * @return
+     */     
+    displayProc: function(items){
+        try {
+//console.log("#init=", new Date().toString());
+            const li = [];
+            items.forEach((element) => {
+                let ht = html`
+                <div>
+                    <h3 class="text-3xl font-bold">${element.title}</h3>
+                    <p>ID: ${element.id}, ${element.createdAt}</p>
+                    <hr class="my-2" />
+                </div>
+                `;
+                li.push(ht);
+            });
+            preact.render(li, elem);
+        } catch (e) {
+            console.error("Error, displayProc");
+            console.error(e);
+        }
+    },
+    /**
+     *
+     * @param
+     *
+     * @return
+     */  
+    addItem : async function()
+    {
+        try{
+            let ret = false;
+            let titleValue = "";
+            const title = document.querySelector("#title");
+            if(title) {
+                titleValue = title.value;
+            }
+            const item = {
+                title: titleValue,
+                content: "",
+            }
+//console.log(item);
+console.log("title=", titleValue);
+            const body = JSON.stringify(item);		
+            const res = await fetch("/api/tasks/create", {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},      
+                body: body
+            });
+            const json = await res.json()
+console.log(json);   
+            if (res.status !== 200) {
+                console.error("error, status <> 200");
+                throw new Error(await res.text());
+            }
+            if (json.ret !==  "OK") {
+                console.error("Error, json.ret <> OK");
+                return ret;
+            }
+            ret = true;
+            return ret;
+        } catch (e) {
+            console.error("Error, addItem");
+            console.error(e);
+            throw new Error('Error , addItem');
+        }
+    },     
+    /**
+     *
+     * @param
+     *
+     * @return
+     */     
+    initProc: async function() {
+        try {
+console.log("#init=", new Date().toString());
+            const items = await this.get_list();
 console.log(items);
-            updateTimestap();
-        })()
-    }, []);
-    //
-    const updateTimestap = function() {
-        const dt = new Date().toString();
-        setUpdatetime(dt);
-    }
-    //
-    return (
-    <div className="App">
-        <h1 className="text-4xl font-bold">TaskIndex</h1>
-        <hr className="my-2" />
-        <div className="py-1">
-            <a href="/tasks/create" className="btn-purple ms-2">Create</a>
-        </div>
-        <hr className="my-2" />
-        <p className="d-none">{updatetime}</p>
-        <ul>
-          {items.map((item) => {
-            return (
-            <li key={item.id}>
-              <a href={`/tasks/${item.id}`}><h3 className="text-3xl font-bold">{item.title}</h3></a>
-              <p>id={item.id}</p>
-              <hr />
-            </li>
-            );
-          })}
-        </ul>   
-        <hr />        
-        {/* CSS */}
-        <style>
-        {`
-        .d-none{ display: none; }
-        `}
-        </style>        
-    </div>
-    );
-};
-//
-ReactDOM.createRoot(document.getElementById('root')).render(
-    <App />
-);
+            this.displayProc(items);
+            //
+            const button = document.querySelector('#save');
+            button.addEventListener('click', async () => {
+                const result = await this.addItem();
+console.log("result=", result);
+                if(result === true) {
+                    location.reload();
+                }
+            });            
+        } catch (e) {
+            console.error("Error, get_list");
+            console.error(e);
+        }
+    },
+}
+PageIndex.initProc();

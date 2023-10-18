@@ -20,7 +20,7 @@ const TestCreate = {
             }
 console.log("title=", titleValue);
             const body = JSON.stringify(item);		
-            const res = await fetch("/api/tasks/create", {
+            const res = await fetch("/api/test/create", {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},      
                 body: body
@@ -59,7 +59,7 @@ console.log(json);
                 const result = await this.addItem();
 console.log("result=", result);
                 if(result === true) {
-                    window.location.href = '/tasks';
+                    window.location.href = '/test/test_index';
                 }
             }); 
         } catch (e) {

@@ -1,6 +1,3 @@
-
-console.log("id=", TaskItemId);
-//
 const TestCreate = {
     /**
      *
@@ -13,19 +10,17 @@ const TestCreate = {
         try{
             let ret = false;
             let idValue = "";
-            /*
             const item_id = document.querySelector("#item_id");
             if(item_id) {
                 idValue = item_id.value;
             }
-            */
             const item = {
                 api_key: "",
-                id: Number(TaskItemId),
+                id: Number(idValue),
             }
 //console.log("title=", titleValue);
             const body = JSON.stringify(item);		
-            const res = await fetch("/api/tasks/delete", {
+            const res = await fetch("/api/test/delete", {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},      
                 body: body
@@ -65,8 +60,10 @@ console.log(json);
                 const result = await this.delete();
 console.log("result=", result);
                 if(result === true) {
-                    window.location.href = '/tasks';
+                     window.location.href = '/test/test_index';
                 }
+                /*
+                */
             }); 
         } catch (e) {
             console.error(e);
