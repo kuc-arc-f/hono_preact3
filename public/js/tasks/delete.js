@@ -1,3 +1,5 @@
+console.log("#delete.js=", TaskItemId);
+//
 const TestCreate = {
     /**
      *
@@ -10,14 +12,18 @@ const TestCreate = {
         try{
             let ret = false;
             let idValue = "";
+            /*
             const item_id = document.querySelector("#item_id");
             if(item_id) {
                 idValue = item_id.value;
             }
+            */
             const item = {
                 api_key: "",
-                id: Number(idValue),
+                id: Number(TaskItemId),
             }
+console.log(item);
+//return;
 //console.log("title=", titleValue);
             const body = JSON.stringify(item);		
             const res = await fetch("/api/test/delete", {
@@ -52,7 +58,7 @@ console.log(json);
     startProc :async function ()
     {
         try{
-            console.log("#startProc");
+console.log("#startProc");
             //btn
             const button = document.querySelector('#btn_delete');
             button.addEventListener('click', async () => {
@@ -60,7 +66,7 @@ console.log(json);
                 const result = await this.delete();
 console.log("result=", result);
                 if(result === true) {
-                     window.location.href = '/test/test_index';
+                     window.location.href = '/tasks';
                 }
                 /*
                 */

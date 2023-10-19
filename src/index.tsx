@@ -19,6 +19,7 @@ import {Test4} from './views/preact1/App';
 import {Test5} from './views/preact2/App';
 /* tasks */
 import {TaskIndex} from './views/tasks/App';
+import {TaskShow} from './views/tasks/show/App';
 //
 interface Env {
   DB: Database
@@ -86,6 +87,13 @@ app.get('/preact2', async (c) => {
 });
 app.get('/tasks', async (c) => { 
   return c.html(<TaskIndex items={[]} />);
+});
+app.get('/tasks/:id', async (c) => { 
+  const {id} = c.req.param();
+console.log("id=", id);
+  const item = await testRouter.get(c, c.env.DB, id);
+console.log(item);
+  return c.html(<TaskShow item={item} id={Number(id)} />);
 });
 //
 

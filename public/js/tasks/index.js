@@ -54,15 +54,19 @@ const PageIndex = {
             items.forEach((item) => {
                 let ht = html`
                 <div>
-                    <h3 class="text-3xl font-bold">${item.title}</h3>
+                    <a href="/tasks/${item.id}">
+                        <h3 class="text-3xl font-bold">${item.title}</h3>
+                    </a>
                     <p>ID: ${item.id}, ${item.createdAt}</p>
-                    <button id="row_id_${item.id}">[ Test ]</button>
+                    <button id="row_id_${item.id}" style="display: none;">[ Test ]</button>
                     <hr class="my-2" />
                 </div>
                 `;
                 li.push(ht);
             });
             preact.render(li, elem);
+/*
+*/
             //event
             items.forEach((item) => {
                 const button= document.querySelector(`#row_id_${item.id}`);
