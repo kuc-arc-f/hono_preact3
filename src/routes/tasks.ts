@@ -108,7 +108,7 @@ console.log(body);
             if (body) {
                 const sql = `
                 INSERT INTO Task ( title, content)
-                VALUES('${body.title}', '${body.body}');
+                VALUES('${body.title}', '${body.content}');
                 `;
                 //console.log(sql);
                 await DB.prepare(sql).run();

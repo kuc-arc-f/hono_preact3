@@ -20,6 +20,8 @@ import {Test5} from './views/preact2/App';
 /* tasks */
 import {TaskIndex} from './views/tasks/App';
 import {TaskShow} from './views/tasks/show/App';
+/* task2 */
+import {Task2Index} from './views/task2/App';
 //
 interface Env {
   DB: Database
@@ -95,7 +97,9 @@ console.log("id=", id);
 console.log(item);
   return c.html(<TaskShow item={item} id={Number(id)} />);
 });
-//
+app.get('/task2', async (c) => { 
+  return c.html(<Task2Index items={[]} />);
+});
 
 /**
 * API

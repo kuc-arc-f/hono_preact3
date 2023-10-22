@@ -1,5 +1,15 @@
+console.log("#tasks2.index.js");
+const html = htm.bind(preact.h);
+//
+MicroModal.init({
+    disableScroll: true,
+    awaitOpenAnimation: true,
+    awaitCloseAnimation: true
+});
+//
+const MODAL_SHOW_NAME ="modal_show_1";
+const elem = document.getElementById("root");
 let items = [];
-let message = "";
 //
 const PageIndex = {
     /**
@@ -44,6 +54,59 @@ const PageIndex = {
      * @param
      *
      * @return
+     */     
+    displayProc: function(){
+        const self = this;
+        try {
+//console.log("#init=", new Date().toString());
+            const li = [];
+            items.forEach((item) => {
+                let ht = html`
+                <div>
+                    <a href="/tasks/${item.id}">
+                        <h3 class="text-3xl font-bold">${item.title}</h3>
+                    </a>
+                    <p>ID: ${item.id}, ${item.createdAt}</p>
+                    <button id="row_id_${item.id}"
+                    class="btn-outline-purple ms-2 my-2">Show</button>
+                    <hr class="my-2" />
+                </div>
+                `;
+                li.push(ht);
+            });
+            preact.render(li, elem);
+/*
+tyle="display: none;"
+*/
+            //event
+            items.forEach((item) => {
+                const button= document.querySelector(`#row_id_${item.id}`);
+                button.addEventListener('click', () => {
+                    const resultRow = items.filter(target => (target.id === item.id));
+//console.log(resultRow);
+//alert("title=" + resultRow[0].title);
+                    if(resultRow[0]) {
+//console.log(resultRow[0]);
+                        self.diplayOneRow(resultRow[0]);
+/*
+                      alert(`
+                      title=${resultRow[0].title} ,
+                      id=${resultRow[0].id} ,
+                      `);
+*/
+                    }
+                }); 
+            });
+        } catch (e) {
+            console.error("Error, displayProc");
+            console.error(e);
+        }
+    },
+    /**
+     *
+     * @param
+     *
+     * @return
      */  
     addItem : async function()
     {
@@ -58,6 +121,7 @@ const PageIndex = {
                 title: titleValue,
                 content: "",
             }
+//console.log(item);
 console.log("title=", titleValue);
             const body = JSON.stringify(item);		
             const res = await fetch("/api/tasks/create", {
@@ -82,84 +146,92 @@ console.log(json);
             console.error(e);
             throw new Error('Error , addItem');
         }
-    },    
+    },     
     /**
-     * startProc
+     *
      * @param
      *
      * @return
-     */   
-    startProc :async function ()
-    {
-        try{
-console.log("#startProc");
-            //btn
+     */
+    diplayOneRow: async function(target) {
+        try {
+            const elem = document.getElementById("modal_show_box");
+            let item = target;
+console.log( item);
+//console.log(item);
+            //
+            let ht = html`
+            <div class="modal micromodal-slide" id=${MODAL_SHOW_NAME} aria-hidden="true">
+                <div class="modal__overlay" tabIndex={-1} data-micromodal-close>
+                    <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+                    <header class="modal__header">
+                        <h1 class="modal__title">${item.title}
+                        </h1>
+                        <button class="modal__close" aria-label="Close modal" data-micromodal-close>
+                        </button>
+                    </header>
+                    <main class="modal__content">
+                        <hr class="my-1" />
+                        <div>ID: ${item.id}, <span>${item.createdAt}</span>
+                        </div>
+                        <hr class="my-1" />
+                        Content:<br />
+                        <pre class="pre_text">${item.content}</pre>
+                    </main>
+                    <footer class="modal__footer">
+                        <button class="btn-gray" id="${MODAL_SHOW_NAME}_close"
+                        >Close</button>
+                    </footer>
+                    </div>
+                </div>
+            </div>
+            `;
+            preact.render(ht, elem);
+            MicroModal.show(MODAL_SHOW_NAME);
+            //close
+            const closeButton = document.getElementById(`${MODAL_SHOW_NAME}_close`);
+            if(closeButton) {
+                closeButton.addEventListener('click', async () => {
+                    console.log("closeButton=");
+                    MicroModal.close(MODAL_SHOW_NAME);
+                });                
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    },
+    /**
+     *
+     * @param
+     *
+     * @return
+     */     
+    initProc: async function() {
+        try {
+console.log("#init=", new Date().toString());
+            items = await this.get_list();
+console.log(items);
+            this.displayProc();
+            //
             const button = document.querySelector('#save');
             button.addEventListener('click', async () => {
                 const result = await this.addItem();
-console.log("result=", result);
+//console.log("result=", result);
                 if(result === true) {
                     location.reload();
                 }
-            }); 
-        } catch (e) {
-            console.error(e);
-        }    
-    },      
-}
-//
+            });
+            /*
+            const testButton = document.querySelector('#test_button');
+            testButton.addEventListener('click', async () => {
+console.log("testButton=");
+            });
+            */
 
-//
-function App() {
-    const [updatetime, setUpdatetime] = React.useState("");
-    React.useEffect(() => {
-        (async () => {
-            console.log("#start");
-            items = await PageIndex.get_list();
-console.log(items);
-            updateTimestap();
-            PageIndex.startProc();
-        })()
-    }, []);
-    //
-    const updateTimestap = function() {
-        const dt = new Date().toString();
-        setUpdatetime(dt);
-    }
-    //
-    return (
-    <div className="App">
-        <h1 className="text-4xl font-bold">Task2</h1>
-        <hr className="my-2" />
-            <label>Title:</label>
-            <input type="text" id="title" 
-            className="border border-gray-400 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500"/>
-        <hr className="mt-2 mb-1" />
-        <button id="save" className="btn-purple ms-2 my-2">Save</button>
-        <hr className="my-1" />
-        <p className="d-none">{updatetime}</p>
-        <ul>
-          {items.map((item) => {
-            return (
-            <li key={item.id}>
-              <a href={`/tasks/${item.id}`}><h3 className="text-3xl font-bold">{item.title}</h3></a>
-              <p>id={item.id}</p>
-              <hr />
-            </li>
-            );
-          })}
-        </ul>   
-        <hr />        
-        {/* CSS */}
-        <style>
-        {`
-        .d-none{ display: none; }
-        `}
-        </style>        
-    </div>
-    );
-};
-//
-ReactDOM.createRoot(document.getElementById('root')).render(
-    <App />
-);
+        } catch (e) {
+            console.error("Error, get_list");
+            console.error(e);
+        }
+    },
+}
+PageIndex.initProc();

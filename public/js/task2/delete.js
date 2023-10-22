@@ -1,5 +1,4 @@
-
-console.log("id=", TaskItemId);
+console.log("#delete.js=", TaskItemId);
 //
 const TestCreate = {
     /**
@@ -23,9 +22,11 @@ const TestCreate = {
                 api_key: "",
                 id: Number(TaskItemId),
             }
+console.log(item);
+//return;
 //console.log("title=", titleValue);
             const body = JSON.stringify(item);		
-            const res = await fetch("/api/tasks/delete", {
+            const res = await fetch("/api/test/delete", {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},      
                 body: body
@@ -57,7 +58,7 @@ console.log(json);
     startProc :async function ()
     {
         try{
-            console.log("#startProc");
+console.log("#startProc");
             //btn
             const button = document.querySelector('#btn_delete');
             button.addEventListener('click', async () => {
@@ -65,8 +66,10 @@ console.log(json);
                 const result = await this.delete();
 console.log("result=", result);
                 if(result === true) {
-                    window.location.href = '/tasks';
+                     window.location.href = '/tasks';
                 }
+                /*
+                */
             }); 
         } catch (e) {
             console.error(e);
