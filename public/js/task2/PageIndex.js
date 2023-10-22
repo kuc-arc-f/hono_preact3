@@ -68,6 +68,8 @@ const PageIndex = {
                     <p>ID: ${item.id}, ${item.createdAt}</p>
                     <button id="row_id_${item.id}"
                     class="btn-outline-purple ms-2 my-2">Show</button>
+                    <button id="delete_id_${item.id}"
+                    class="btn-outline-red ms-2 my-2">Delete</button>
                     <hr class="my-2" />
                 </div>
                 `;
@@ -85,6 +87,22 @@ const PageIndex = {
                     }
                 }); 
             });
+            //delete
+            items.forEach((item) => {
+                const button= document.querySelector(`#delete_id_${item.id}`);
+                button.addEventListener('click', async () => {
+                    const resultRow = items.filter(target => (target.id === item.id));
+                    if(resultRow[0]) {
+//console.log("item.id=", item.id);
+                        let resulte  = await PageShow.delete(item.id);
+console.log("resulte=", resulte);
+                        if(resulte === true) {
+                            location.reload();
+                        }
+                    }
+                }); 
+            });
+
         } catch (e) {
             console.error("Error, displayProc");
             console.error(e);

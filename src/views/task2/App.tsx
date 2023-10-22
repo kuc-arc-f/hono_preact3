@@ -25,15 +25,12 @@ export const Task2Index: FC<{ items: any[] }> = (props: { items: any[] }) => {
       {html`<script src="/js/task2/config.js?${timeStamp}"></script>`}
       {html`<script src="/js/task2/ModalShow.js?${timeStamp}"></script>`}
       {html`<script src="/js/task2/PageCreate.js?${timeStamp}"></script>`}
+      {html`<script src="/js/task2/PageShow.js?${timeStamp}"></script>`}
       {html`<script src="/js/task2/PageIndex.js?${timeStamp}"></script>`}
   </Layout>
   )
 }
 /*
-ModalShow
-config.js
-PageCreate.js
+PageShow.js
 {html`<script>const aaa = 0;</script>`}
-        <button id="test_button" class="btn-purple ms-2 my-2">testButton</button>
-        <hr class="my-1" />
 */
