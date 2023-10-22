@@ -7,6 +7,7 @@ export const Task2Index: FC<{ items: any[] }> = (props: { items: any[] }) => {
   // 
   return (
     <Layout title="Test_index">
+      {html`<script>const html = htm.bind(preact.h);</script>`}
       <div>
         <h1 class="text-4xl font-bold">Task2</h1>
         <hr class="my-2" />
@@ -21,11 +22,18 @@ export const Task2Index: FC<{ items: any[] }> = (props: { items: any[] }) => {
         <div id="modal_show_box"></div>
       </div>
       {/* JS */}
-      {html`<script src="/js/task2/index.js?${timeStamp}"></script>`}
+      {html`<script src="/js/task2/config.js?${timeStamp}"></script>`}
+      {html`<script src="/js/task2/ModalShow.js?${timeStamp}"></script>`}
+      {html`<script src="/js/task2/PageCreate.js?${timeStamp}"></script>`}
+      {html`<script src="/js/task2/PageIndex.js?${timeStamp}"></script>`}
   </Layout>
   )
 }
 /*
+ModalShow
+config.js
+PageCreate.js
+{html`<script>const aaa = 0;</script>`}
         <button id="test_button" class="btn-purple ms-2 my-2">testButton</button>
         <hr class="my-1" />
 */

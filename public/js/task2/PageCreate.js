@@ -1,4 +1,4 @@
-const TestCreate = {
+const PageCreate = {
     /**
      *
      * @param
@@ -18,9 +18,10 @@ const TestCreate = {
                 title: titleValue,
                 content: "",
             }
+//console.log(item);
 console.log("title=", titleValue);
             const body = JSON.stringify(item);		
-            const res = await fetch("/api/test/create", {
+            const res = await fetch("/api/tasks/create", {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},      
                 body: body
@@ -42,31 +43,6 @@ console.log(json);
             console.error(e);
             throw new Error('Error , addItem');
         }
-    },         
-    /**
-     * startProc
-     * @param
-     *
-     * @return
-     */   
-    startProc :async function ()
-    {
-        try{
-            console.log("#startProc");
-            //btn
-            const button = document.querySelector('#save');
-            button.addEventListener('click', async () => {
-                const result = await this.addItem();
-console.log("result=", result);
-                if(result === true) {
-                    window.location.href = '/test/test_index';
-                }
-            }); 
-        } catch (e) {
-            console.error(e);
-        }    
     },
 
 }
-//
-TestCreate.startProc();
