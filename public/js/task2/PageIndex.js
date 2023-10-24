@@ -75,6 +75,10 @@ const PageIndex = {
                 `;
                 li.push(ht);
             });
+            /*
+            <button onClick="alert('aa')"
+            class=" ms-2 my-2">[ Test ]</button>
+            */
             preact.render(li, elem);
             //event
             items.forEach((item) => {

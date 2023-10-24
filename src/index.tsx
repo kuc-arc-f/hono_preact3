@@ -9,7 +9,8 @@ import {Layout} from './views/layout';
 import testRouter from './routes/test';
 import taskRouter from './routes/tasks';
 import postRouter from './routes/posts';
-
+/* views */
+import Top from './views/Top';
 import {Csr1} from './views/csr1/App';
 import {Csr2} from './views/csr2/App';
 import {Csr3} from './views/csr3/App';
@@ -30,7 +31,7 @@ interface Env {
 export const app = new Hono()
 //basicAuth
 app.use(
-  "/admin/*",
+  "/*",
   basicAuth({
     username: "test",
     password: "1111",
@@ -40,20 +41,6 @@ app.use(
 app.get('/static/*', serveStatic({ root: './' }))
 app.get('/js/*', serveStatic({ root: './' }))
 app.get('/styles/*', serveStatic({ root: './' }))
-//
-const Top: FC<{ messages: string[] }> = (props: { messages: string[] }) => {
-  return (
-    <Layout title="Welcome Top">
-      <h1 class="text-4xl font-bold">Hello Hono!</h1>
-      <hr />
-      <ul>
-        {props.messages.map((message) => {
-          return (<li class="my-2" >{message}!!</li>)
-        })}
-      </ul>
-    </Layout>
-  )
-}
 /**
 * route
 */
@@ -70,12 +57,10 @@ const testItems = [
 app.get('/test_index', async (c) => { 
   return c.html(<TestIndex items={testItems} />);
 });
-/* CSR */
 app.get('/csr1', async (c) => { 
   return c.html(<Csr1 items={[]} />);
 });
 app.get('/csr2', async (c) => { 
-//  const items = await testRouter.get_list(c, c.env.DB);
   return c.html(<Csr2 items={[]} />);
 });
 app.get('/csr3', async (c) => { 

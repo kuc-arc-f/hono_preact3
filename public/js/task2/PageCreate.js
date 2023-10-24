@@ -14,9 +14,14 @@ const PageCreate = {
             if(title) {
                 titleValue = title.value;
             }
+            let contentValue = "";
+            const content = document.querySelector("#content");
+            if(content) {
+                contentValue = content.value;
+            }
             const item = {
                 title: titleValue,
-                content: "",
+                content: contentValue,
             }
 //console.log(item);
 console.log("title=", titleValue);
