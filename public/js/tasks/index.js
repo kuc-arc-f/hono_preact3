@@ -58,22 +58,24 @@ const PageIndex = {
                         <h3 class="text-3xl font-bold">${item.title}</h3>
                     </a>
                     <p>ID: ${item.id}, ${item.createdAt}</p>
-                    <button id="row_id_${item.id}" style="display: none;">[ Test ]</button>
+                    <a href="/tasks/${item.id}">
+                        <button  class="btn-outline-purple ms-2 my-2">Show</button>
+                    </a>
                     <hr class="my-2" />
                 </div>
                 `;
                 li.push(ht);
             });
             preact.render(li, elem);
-/*
-*/
             //event
+            /*
+            <button id="row_id_${item.id}" style="display: none;">[ Test ]</button>
+            */
+            /*
             items.forEach((item) => {
                 const button= document.querySelector(`#row_id_${item.id}`);
                 button.addEventListener('click', () => {
                     const resultRow = items.filter(target => (target.id === item.id));
-//console.log(resultRow);
-//alert("title=" + resultRow[0].title);
                     if(resultRow[0]) {
                       alert(`
                       title=${resultRow[0].title} ,
@@ -82,6 +84,7 @@ const PageIndex = {
                     }
                 }); 
             });
+            */
         } catch (e) {
             console.error("Error, displayProc");
             console.error(e);
@@ -102,9 +105,14 @@ const PageIndex = {
             if(title) {
                 titleValue = title.value;
             }
+            let contentValue = "";
+            const content = document.querySelector("#content");
+            if(content) {
+                contentValue = content.value;
+            }            
             const item = {
                 title: titleValue,
-                content: "",
+                content: contentValue,
             }
 //console.log(item);
 console.log("title=", titleValue);

@@ -15,6 +15,9 @@ console.log(props.item);
             <p>ID: {props.item.id}
             , {props.item.createdAt}
             </p>
+            <hr class="my-2" />
+            content:<br />
+            <pre>{props.item.content}</pre>
 
             <hr class="my-2" />
             <div id="root"></div>
