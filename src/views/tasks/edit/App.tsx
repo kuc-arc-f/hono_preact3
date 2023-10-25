@@ -28,7 +28,7 @@ console.log(props.item);
             placeholder="" required
             >{props.item.content}</textarea>            
             <hr class="my-2" />
-            <button id="btn_delete" class="btn-purple ms-2 my-2">Save</button>
+            <button id="btn_save" class="btn-purple ms-2 my-2">Save</button>
             <hr class="my-2" />
             <div id="root"></div>
             {html`
@@ -38,10 +38,12 @@ console.log(props.item);
             } 
             <button id="btn_delete" class="btn-red ms-2 my-2">Delete</button>
             {html`<script src="/js/tasks/delete.js?${timeStamp}"></script>`}
+            {html`<script src="/js/tasks/edit.js?${timeStamp}"></script>`}
         </div>
     </Layout>
     )
 }
 /*
+edit.js
 {html`<script type="text/babel" src="/js/tasks/show.js?${timeStamp}"></script>`}  
 */
