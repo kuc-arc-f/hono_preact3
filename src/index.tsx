@@ -21,6 +21,7 @@ import {Test5} from './views/preact2/App';
 /* tasks */
 import {TaskIndex} from './views/tasks/App';
 import {TaskShow} from './views/tasks/show/App';
+import {TaskEdit} from './views/tasks/edit/App';
 /* task2 */
 import {Task2Index} from './views/task2/App';
 //
@@ -30,6 +31,7 @@ interface Env {
 //
 export const app = new Hono()
 //basicAuth
+/*
 app.use(
   "/*",
   basicAuth({
@@ -37,6 +39,7 @@ app.use(
     password: "1111",
   })
 );
+*/
 //serveStatic
 app.get('/static/*', serveStatic({ root: './' }))
 app.get('/js/*', serveStatic({ root: './' }))
@@ -82,6 +85,14 @@ console.log("id=", id);
 console.log(item);
   return c.html(<TaskShow item={item} id={Number(id)} />);
 });
+app.get('/tasks_edit/:id', async (c) => { 
+  const {id} = c.req.param();
+console.log("id=", id);
+  const item = await testRouter.get(c, c.env.DB, id);
+console.log(item);
+  return c.html(<TaskEdit item={item} id={Number(id)} />);
+});
+//
 app.get('/task2', async (c) => { 
   return c.html(<Task2Index items={[]} />);
 });
@@ -112,6 +123,11 @@ app.post('/api/tasks/get', async (c) => {
 app.post('/api/tasks/create', async (c) => { 
   const body = await c.req.json();
   const resulte = await taskRouter.create(body, c.env.DB);
+  return c.json(resulte);
+});
+app.post('/api/tasks/update', async (c) => { 
+  const body = await c.req.json();
+  const resulte = await taskRouter.update(body, c.env.DB);
   return c.json(resulte);
 });
 app.post('/api/tasks/delete', async (c) => { 

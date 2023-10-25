@@ -6,7 +6,7 @@
 
  date    : 2023/10/16
 
- update  : 2023/10/24 
+ update  : 2023/10/25 
 
 ***
 ### Summary
@@ -28,8 +28,8 @@ bucket = "./public"
 
 [vars]
 #API_KEY = "123"
-BASIC_USER_NAME = "test"
-BASIC_USER_PASSWORD = "1111"
+#BASIC_USER_NAME = "test"
+#BASIC_USER_PASSWORD = "1111"
 
 [[d1_databases]]
 binding = "DB" # i.e. available in your Worker on env.DB

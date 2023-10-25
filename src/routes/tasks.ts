@@ -125,6 +125,37 @@ console.log(body);
      *
      * @return
      */    
+    update: async function(body, DB)
+    {
+        try{    
+console.log(body);
+            if (body) {
+                /*
+                const sql = `
+                INSERT INTO Task ( title, content)
+                VALUES('${body.title}', '${body.content}');
+                `;
+                */
+                const sql = `
+                UPDATE Task 
+                SET title = '${body.title}', content='${body.content}'
+                WHERE id = ${body.id}
+                `;
+console.log(sql);
+                await DB.prepare(sql).run();
+            }
+            return {ret: "OK", data: body};
+        } catch (e) {
+            console.error(e);
+            return [];
+        } 
+    },
+    /**
+     * 
+     * @param
+     *
+     * @return
+     */    
     delete: async function(body, DB)
     {
         try{    

@@ -61,6 +61,9 @@ const PageIndex = {
                     <a href="/tasks/${item.id}">
                         <button  class="btn-outline-purple ms-2 my-2">Show</button>
                     </a>
+                    <a href="/tasks_edit/${item.id}">
+                        <button  class="btn-outline-purple ms-2 my-2">Edit</button>
+                    </a>
                     <hr class="my-2" />
                 </div>
                 `;

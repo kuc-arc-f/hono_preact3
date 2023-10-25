@@ -608,12 +608,20 @@ video {
   display: block;
 }
 
-.hidden {
-  display: none;
+.h-16 {
+  height: 4rem;
+}
+
+.h-32 {
+  height: 8rem;
 }
 
 .w-full {
   width: 100%;
+}
+
+.resize-none {
+  resize: none;
 }
 
 .rounded-md {
@@ -684,6 +692,10 @@ video {
 .text-gray-700 {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 /* custom_class */

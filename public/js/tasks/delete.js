@@ -11,13 +11,7 @@ const TestCreate = {
     {
         try{
             let ret = false;
-            let idValue = "";
-            /*
-            const item_id = document.querySelector("#item_id");
-            if(item_id) {
-                idValue = item_id.value;
-            }
-            */
+//            let idValue = "";
             const item = {
                 api_key: "",
                 id: Number(TaskItemId),
