@@ -41,5 +41,7 @@ database_id = ""
 ***
 ### blog 
 
+https://zenn.dev/knaka0209/scraps/ca2bcd43be460b
+
 ***
 
