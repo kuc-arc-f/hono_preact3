@@ -13,7 +13,7 @@ import postRouter from './routes/posts';
 import Top from './views/Top';
 import {Csr1} from './views/csr1/App';
 import {Csr2} from './views/csr2/App';
-import {Csr3} from './views/csr3/App';
+import {Ssr1} from './views/ssr1/App';
 //
 import {TestIndex} from './views/test_index/App';
 import {Test4} from './views/preact1/App';
@@ -66,9 +66,18 @@ app.get('/csr1', async (c) => {
 app.get('/csr2', async (c) => { 
   return c.html(<Csr2 items={[]} />);
 });
+app.get('/ssr1', async (c) => { 
+  let page = c.req.query('page');
+  if(!page) { page = '1';}
+console.log("page=", page);
+  const items = await testRouter.get_list_page(c, c.env.DB, page);
+  return c.html(<Ssr1 items={items} page={page} />);
+});
+/* Ssr1
 app.get('/csr3', async (c) => { 
     return c.html(<Csr3 items={[]} />);
 });
+*/
 app.get('/preact1', async (c) => { 
   return c.html(<Test4 items={[]} />);
 });
